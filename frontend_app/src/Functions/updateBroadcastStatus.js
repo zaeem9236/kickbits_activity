@@ -1,6 +1,6 @@
 import syncRedux_userLeads from "./syncRedux_userLeads";
-export default function updateConversionStatus(uid, status, email, dispatch, updateList){
-    fetch(`http://localhost:5000/updatelead/conversion?id=${uid}&conversion=${!status}`, {
+export default function updateBroadcastStatus(uid, status, email, dispatch, updateList){
+    fetch(`http://localhost:5000/updatelead/broadcast?id=${uid}&broadcast=${!status}`, {
         method: 'GET', // The method
         mode: 'cors', // It can be no-cors, cors, same-origin
         headers: { 'Access-Control-Allow-Origin': '*' },

@@ -6,9 +6,12 @@ import { viewList, updateList, pushLeadInList } from '../../Redux/Slices/leadsSl
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import RadioButton from '../MaterialUI/RadioButton';
+
 
 import syncRedux_userLeads from '../../Functions/syncRedux_userLeads';
-
+import updateConversionStatus from '../../Functions/updateConversionStatus';
+import updateBroadcastStatus from '../../Functions/updateBroadcastStatus';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -71,15 +74,15 @@ function CreateLead() {
             <div style={{ paddingTop: '10vh' }}>
                 <table className="table table-striped">
                     <thead>
-                        <tr className='text-center' style={{backgroundColor: '#00695f', color: 'white'}}>
-                            <th colspan="5">Main List</th>
+                        <tr className='text-center' style={{ backgroundColor: '#00695f', color: 'white' }}>
+                            <th colSpan="5">Main List</th>
                         </tr>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Lead name</th>
                             <th scope="col">Lead Company</th>
-                            <th scope="col">Convertion Status</th>
-                            <th scope="col">Broadcast Status</th>
+                            <th scope="col" style={{width:'18.66%'}}>Conversion Status</th>
+                            <th scope="col" style={{width:'18.66%'}}>Broadcast Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,11 +92,19 @@ function CreateLead() {
                                     <td scope="row">{index + 1}</td>
                                     <td>{data.Lead_name}</td>
                                     <td>{data.Lead_company}</td>
-                                    {/* <td>{`${data.Lead_conversion_status}`}</td> */}
-                                    <td>{<button onClick={()=>{}}>chamge</button>}</td>
+                                    <td style={(data.Lead_conversion_status === true ? { backgroundColor: '#91ebba' } : {})}>
+                                        <div className='text-center'>
+                                            < RadioButton updateConversionStatus={updateConversionStatus} id={data._id} lead_status={data.Lead_conversion_status} userEmail={userData.email} dispatch={dispatch} updateList={updateList} />
+                                            <p>{`${(data.Lead_conversion_status === true? 'Converted':'Not Converted')}`}</p>
+                                        </div>
+                                    </td>
 
-                                    <td>{`${data.Lead_brodcast_status}`}</td>
-
+                                    <td>
+                                        <div className='text-center'>
+                                            < RadioButton updateConversionStatus={updateBroadcastStatus} id={data._id} lead_status={data.Lead_brodcast_status} userEmail={userData.email} dispatch={dispatch} updateList={updateList} />
+                                            <p>{`${(data.Lead_brodcast_status === true? 'Broadcasted':'')}`}</p>
+                                        </div>
+                                    </td>
                                 </tr>
                             )
                         })}
