@@ -13,11 +13,14 @@ app.get('/', (req, res) => {
         Lead_conversion_status: req.query.conversion,
         Lead_brodcast_status: req.query.broadcast,
         Lead_created_by: `${req.query.created_by}`,
+        Registered_email: `${req.query.email}`
     })
     newLead.save()
         .then(() => { res.status(200).send(`new lead created succesfully`) })
         .catch((err) => { res.status(200).send(`error while creatin new Lead \r\n${err}`) })
 })
+
+
 
 
 app.get('*', (req, res) => { // custom error message when page not found    

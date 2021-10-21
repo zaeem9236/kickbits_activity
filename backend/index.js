@@ -11,10 +11,12 @@ app.use(express.json()); // use when you want echo response via post method
 let CreateLead = require('./Routes/CreateLead.js');
 let UpdateLead = require('./Routes/UpdateLead.js');
 let Auth = require('./Routes/Auth.js');
+let Read = require('./Routes/ReadLead')
 
 app.use('/createlead',CreateLead);
 app.use('/updatelead',UpdateLead);
 app.use('/auth',Auth);
+app.use('/read',Read);
 
 /* Mongoose Configuration */
 const mongoose = require('mongoose');

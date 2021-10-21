@@ -7,7 +7,8 @@ const leadSchema = new mongoose.Schema({
     Lead_conversion_status: { type: Boolean, default: false },
     Lead_brodcast_status: { type: Boolean, default: false },
     Lead_created_by: { type: String, required: true },
-    Lead_created_date: { type: Date, default: Date.now() }
+    Lead_created_date: { type: Date, default: Date.now() },
+    Registered_email: { type: String, required: true}
 });
 
 const leads = new mongoose.model('lead', leadSchema); // blueprint for leads record by sales person

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Route, Redirect, useHistory } from 'react-router-dom';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserName, setEmail, setVerified, selectUserData } from '../../Redux/Slices/userSlice';
 
 
 
@@ -53,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginTemplate() {
+    let history= useHistory()
+    let dispatch = useDispatch();
     let [credentials, setCredentials] = useState({ Email: '', Password: '', passwordVisible: false });
     const classes = useStyles();
 
@@ -126,7 +133,14 @@ export default function LoginTemplate() {
                             .then(res =>  res.json())
                                 .then((data) => {
                                     console.log(data)
-                                    // dispatch(loadAnalysisData(data))
+                                    dispatch(setUserName(data.token.userName))
+                                    dispatch(setEmail(data.token.email))
+                                    dispatch(setVerified(data.token.verified))
+                                    if(data.token.verified === true){
+                                        history.push('/mainpage')
+                                    }else{
+                                        alert('invalid credentials')
+                                    }
                                 })
                                 .catch((error) => {
                                     // alert(error)

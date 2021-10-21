@@ -1,8 +1,8 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 
- const ProtectedRoute = (MainPage) =>{
-     let auth = false;
+ const ProtectedRoute = (MainPage, userData) =>{
+     let auth = userData.verified;
     if (auth) {
         return (<Route exact path='/mainpage' component={MainPage} />)
       } else {
