@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEmail, setVerified, selectUserData } from '../../Redux/Slices/userSlice';
 import { viewList, updateList } from '../../Redux/Slices/leadsSlice';
@@ -6,6 +6,8 @@ import { viewList, updateList } from '../../Redux/Slices/leadsSlice';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+
+import syncRedux_userLeads from '../../Functions/syncRedux_userLeads'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -34,10 +36,11 @@ function CreateLead() {
     let userData = useSelector(selectUserData);
     let userList = useSelector(viewList)
     const classes = useStyles()
-    // console.log(userData)
 
+    useEffect(() => {
+    syncRedux_userLeads(userData.email, dispatch, updateList)
+    }, []);
 
-    getList_And_updateRedux(userData.email, dispatch, updateList)
     return (
         <div>
             <h2 style={{ textAlign: 'center' }}> Create Lead </h2>
@@ -106,21 +109,3 @@ function CreateLead() {
 
 export default CreateLead;
 
-function getList_And_updateRedux(userEmail, dispatch, updateList) {
-    console.log('aaaaaaa')
-    fetch(`http://localhost:5000/read/userLeads?email=${userEmail}`, {
-        method: 'GET', // The method
-        mode: 'cors', // It can be no-cors, cors, same-origin
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        },
-
-    })
-        .then(res => res.json())
-        .then((data) => {
-            dispatch(updateList(data))
-        })
-        .catch((error) => {
-            // alert(error)
-        });
-}
