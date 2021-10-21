@@ -5,7 +5,7 @@ export default function createLead(payload) {
         headers: { 'Access-Control-Allow-Origin': '*' },
     })
         .then((data) => {
-            alert('lead ceated')
+            // alert('lead ceated')
         })
         .catch((error) => {
             alert('Problem in ceating lead')

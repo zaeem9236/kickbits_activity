@@ -162,7 +162,7 @@ export default function MiniDrawer() {
         </div>
         <Divider style={{backgroundColor: 'white'}}/>
         <List>
-          {['Create Lead', 'Main List', 'Brodcasting View'].map((text, index) => (
+          {['Home page'].map((text, index) => (
             <ListItem onClick={() => { setCurrentPage(text) }} button key={text}>
               <ListItemIcon style={(currentPage === text? {color:'#009688'} : {color:'#757575'})}>
                 {index === 0 ? <AddCircleOutlineIcon /> : ''}
@@ -197,12 +197,7 @@ export default function MiniDrawer() {
 
 
 function renderPage(currentPage){
-  if (currentPage === 'Web Analysis'){
-    return(<CreateLead />)
-  } else if (currentPage === 'Episodes Analysis'){
-    return(<CreateLead />)
-  } else if (currentPage === 'User Logs'){
+  if (currentPage === 'Web Analysis' || currentPage === 'Home page'){
     return(<CreateLead />)
   }
-
 }

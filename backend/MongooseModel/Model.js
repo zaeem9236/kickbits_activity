@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const leadSchema = new mongoose.Schema({
+const leadSchema = new mongoose.Schema({ //Lead Schema
     Lead_name: { type: String, required: true },
     Lead_company: { type: String, required: true },
     Lead_domain: { type: String, required: true },
@@ -13,7 +13,7 @@ const leadSchema = new mongoose.Schema({
 
 const leads = new mongoose.model('lead', leadSchema); // blueprint for leads record by sales person
 
-const authSchema = new mongoose.Schema({
+const authSchema = new mongoose.Schema({ //authentication Schema
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },

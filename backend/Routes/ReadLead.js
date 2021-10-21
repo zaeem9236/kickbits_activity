@@ -15,6 +15,16 @@ app.get('/userleads', (req, res) => {
       })
 })
 
+app.get('/broadcastedusers', (req, res) => {
+    let data = leads.find({Lead_brodcast_status: true}, (err, data)=>{
+        if (err) {
+          res.status(200).send(err)
+      } else {
+        res.status(200).send(data)
+      }
+      })
+})
+
 
 
 

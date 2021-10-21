@@ -1,4 +1,4 @@
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import {Redirect, Route } from 'react-router-dom';
 
 
  const ProtectedRoute = (MainPage, userData) =>{

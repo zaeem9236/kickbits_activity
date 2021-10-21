@@ -1,10 +1,10 @@
-import { BrowserRouter, Link, Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import LoginPage from './Components/LoginPage/LoginPage';
 import MainPage from './Components/MainPage/MainPage';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserName, setEmail, setVerified, selectUserData } from './Redux/Slices/userSlice';
+import { useSelector} from 'react-redux';
+import { selectUserData } from './Redux/Slices/userSlice';
 
 import './App.css';
 
