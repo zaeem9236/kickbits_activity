@@ -10,7 +10,19 @@ const leadSchema = new mongoose.Schema({
     Lead_created_date: { type: Date, default: Date.now() }
 });
 
+const leads = new mongoose.model('lead', leadSchema); // blueprint for leads record by sales person
 
-const leads = new mongoose.model('lead', leadSchema);
+const authSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    verified: { type: Boolean, default: false }
+});
 
-module.exports = leads;
+const authusers = new mongoose.model('authuser', authSchema); // blueprint for leads record by sales person
+
+
+
+
+
+module.exports = {leads, authusers};

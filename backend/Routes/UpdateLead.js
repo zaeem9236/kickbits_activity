@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express.Router();
-var leads = require('../MongooseModel/Model');
+var {leads} = require('../MongooseModel/Model');
 
 
 app.get('/conversion', (req, res) => {

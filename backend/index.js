@@ -1,12 +1,20 @@
 
 /* Express Configuration */
 const express = require("express");
+var cors = require('cors')
+
 const app = express();
+app.use(cors());
+
+
 app.use(express.json()); // use when you want echo response via post method
 let CreateLead = require('./Routes/CreateLead.js');
 let UpdateLead = require('./Routes/UpdateLead.js');
+let Auth = require('./Routes/Auth.js');
+
 app.use('/createlead',CreateLead);
 app.use('/updatelead',UpdateLead);
+app.use('/auth',Auth);
 
 /* Mongoose Configuration */
 const mongoose = require('mongoose');
@@ -20,7 +28,7 @@ const port = 5000;
 
 
 app.get('/', (req, res) => { // app.get(route, callback(req, res))
-    res.status(200).send('<h1>home page</h1>');
+    res.status(200).send('invalid request');
 })
 
 app.get('/test', (req, res) => { // app.get(route, callback(req, res))
