@@ -1,23 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { Up, Down, selectCount } from './Redux/Slices/countSlice';
+
+
 function App() {
+  let dispatch = useDispatch();
+  let count = useSelector(selectCount);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{count}</h1>
+      <button onClick={()=>{dispatch(Up())}}>+</button>
+      
+      <button  onClick={()=>{dispatch(Down())}}>-</button>
     </div>
   );
 }
