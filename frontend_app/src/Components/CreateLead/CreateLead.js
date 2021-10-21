@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEmail, setVerified, selectUserData } from '../../Redux/Slices/userSlice';
-import { viewList, updateList } from '../../Redux/Slices/leadsSlice';
+import { viewList, updateList, pushLeadInList } from '../../Redux/Slices/leadsSlice';
 
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import syncRedux_userLeads from '../../Functions/syncRedux_userLeads'
+import syncRedux_userLeads from '../../Functions/syncRedux_userLeads';
+
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -38,7 +40,7 @@ function CreateLead() {
     const classes = useStyles()
 
     useEffect(() => {
-    syncRedux_userLeads(userData.email, dispatch, updateList)
+        syncRedux_userLeads(userData.email, dispatch, updateList)
     }, []);
 
     return (
@@ -54,27 +56,24 @@ function CreateLead() {
                 </form>
 
                 <button onClick={() => {
-                    fetch(`http://localhost:5000/createlead?name=${lead.Lead_name}&company=${lead.Lead_company}&domain=${lead.Lead_domain}&conversion=${lead.Lead_conversion_status}&broadcast=${lead.Lead_brodcast_status}&created_by=${lead.Lead_created_by}&email=${userData.email}`, {
-                        method: 'GET', // The method
-                        mode: 'cors', // It can be no-cors, cors, same-origin
-                        headers: {
-                            'Access-Control-Allow-Origin': '*'
-                        },
-
-                    })
-
-                        .then((data) => {
-                            alert('lead ceated')
-                        })
-                        .catch((error) => {
-                            alert('Problem in ceating lead')
-                        });
+                    dispatch(pushLeadInList({
+                        Lead_name: lead.Lead_name,
+                        Lead_company: lead.Lead_company,
+                        Lead_domain: lead.Lead_domain,
+                        Lead_conversion_status: false,
+                        Lead_brodcast_status: false,
+                        Lead_created_by: lead.Lead_created_by,
+                        Registered_email: `${userData.email}`
+                    }))
                 }}>save</button>
             </div>
 
             <div style={{ paddingTop: '10vh' }}>
                 <table className="table table-striped">
                     <thead>
+                        <tr className='text-center' style={{backgroundColor: '#00695f', color: 'white'}}>
+                            <th colspan="5">Main List</th>
+                        </tr>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Lead name</th>
@@ -87,10 +86,12 @@ function CreateLead() {
                         {userList.map(function (data, index) {
                             return (
                                 <tr key={index}>
-                                    <th scope="row">{index + 1}</th>
+                                    <td scope="row">{index + 1}</td>
                                     <td>{data.Lead_name}</td>
                                     <td>{data.Lead_company}</td>
-                                    <td>{`${data.Lead_conversion_status}`}</td>
+                                    {/* <td>{`${data.Lead_conversion_status}`}</td> */}
+                                    <td>{<button onClick={()=>{}}>chamge</button>}</td>
+
                                     <td>{`${data.Lead_brodcast_status}`}</td>
 
                                 </tr>
